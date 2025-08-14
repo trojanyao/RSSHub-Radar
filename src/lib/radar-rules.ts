@@ -10295,6 +10295,32 @@ export const defaultRules = {
       },
     ],
   },
+  "mgstage.com": {
+    _name: "MGS動画",
+    ".": [
+      {
+        title: "搜索页面",
+        docs: "https://docs.rsshub.app/routes/other#mgstage",
+        source: "/search/cSearch.php",
+        target: (_, url: string) => {
+          const urlObj = new URL(url)
+
+          // 匹配 cSearch.php? 之后的部分
+          const fullQuery = urlObj.search
+
+          // 使用完整的查询字符串 (cSearch.php? 之后的所有内容)
+          let rssPath = "/mgstage"
+          if (fullQuery) {
+            // 移除开头的 ? 并编码
+            const encodedQuery = encodeURIComponent(fullQuery.substring(1))
+            rssPath += `/${encodedQuery}`
+          }
+
+          return rssPath
+        },
+      },
+    ],
+  },
   "miit.gov.cn": {
     _name: "工业和信息化部",
     ".": [
